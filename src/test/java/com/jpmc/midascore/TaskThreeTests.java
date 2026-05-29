@@ -1,4 +1,8 @@
+
 package com.jpmc.midascore;
+
+import com.jpmc.midascore.entity.UserRecord;
+import com.jpmc.midascore.repository.UserRepository;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -16,6 +20,8 @@ public class TaskThreeTests {
 
     @Autowired
     private KafkaProducer kafkaProducer;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserPopulator userPopulator;
@@ -38,7 +44,14 @@ public class TaskThreeTests {
         logger.info("----------------------------------------------------------");
         logger.info("use your debugger to find out what waldorf's balance is after all transactions are processed");
         logger.info("kill this test once you find the answer");
+        System.out.println("CHECKPOINT");
+
         while (true) {
+
+            UserRecord user = userRepository.findByName("waldorf");
+
+            System.out.println("WALDORF BALANCE = " + user.getBalance());
+
             Thread.sleep(20000);
             logger.info("...");
         }
